@@ -7,11 +7,15 @@
    :pilot-name "Johanna"
    :id/rocket "SB002-sol"
    :id/employee "22910x2"
-   :badges "SETUP"
+   :badges ["SETUP" "PUT" "DATALOG-QUERIES"]
    :cargo ["stereo" "gold fish" "slippers" "secret note"]})
 
 ;; the XTDB standalone in-memory node
 (def node (xt/start-node {}))
+
+;; get my manifest synced in
+(xt/submit-tx node [[::xt/put manifest]])
+(xt/sync node)
 
 (defn easy-ingest
   "Uses XTDB put transaction to add a vector of documents to a specified
